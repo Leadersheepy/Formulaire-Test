@@ -1,0 +1,71 @@
+body{
+    font-family: "Lato" , "sans-serif";
+    margin: px 0px;
+    background: #0069;
+}
+
+.divider{
+    width: 100px;
+    height: 2px;
+    background: pink;
+    margin: 0 auto;
+}
+
+.heading{
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+h1{
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+}
+
+#contact-form{
+    font-size: 20px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+#contact-form input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+
+#contact-form input[type=submit]
+{
+    margin: 40px auto 0px;
+    display:block;
+}
+.button1
+{
+    border: 1px solid #ddd;
+    background: pink;
+    color: dimgray;
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 18px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in 0%;
+}
+
+button:hover{
+    background: #333;
+    border-color: pink;
+}
+
+.thank-you{
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    
+}
