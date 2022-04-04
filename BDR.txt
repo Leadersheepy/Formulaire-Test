@@ -1,0 +1,142 @@
+#Pays classés par population
+# defaultView:BubbleChart
+SELECT DISTINCT ?countryLabel ?population
+{
+  ?country wdt:P31 wd:Q6256 ;
+           wdt:P1082 ?population .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}
+GROUP BY ?population ?countryLabel
+ORDER BY DESC(?population)
+
+
+
+prefix iut: <http://www.iut-orsay.fr/td/> 
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+prefix pay: <http://www.iut-orsay.fr/td/pays/> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+select ?pay ?medal where { 
+?pay rdf:type iut:Pays .
+?pay iut:medal ?medal.
+ 
+} ORDER BY DESC(?medal) limit 10
+
+
+PREFIX wdt: <http://www.wikidata.org/prop/direct/> 
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+prefix iut: <http://www.iut-orsay.fr/td/> 
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+prefix pay: <http://www.iut-orsay.fr/td/pays/> 
+
+SELECT DISTINCT ?countryLabel ?population
+
+where {
+    service <https://query.wikidata.org/sparql>
+    {
+        select ?countryLabel ?population {
+            ?country wdt:P31 wd:Q6256 ;
+                     wdt:P1082 ?population .
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+        }
+    }
+}
+GROUP BY ?population ?countryLabel
+ORDER BY DESC(?population)
+limit 10
+
+
+PREFIX iut: <http://www.iut-orsay.fr/td/>
+PREFIX pay: <http://www.iut-orsay.fr/td/pays/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/> 
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?nom ?countryLabel ?population
+
+where {
+    ?pay rdf:type iut:Pays .
+    ?pay iut:medal ?medal.
+    ?pay rdfs:label ?nom.
+    service <https://query.wikidata.org/sparql> {
+        SELECT ?countryLabel ?population {
+            ?country wdt:P31/wdt:P279* wd:Q3624078 ; 
+                                     wdt:P1082 ?population ;
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+    }
+    }
+    filter(regex(?countryLabel, str(?nom)))
+}
+GROUP BY ?nom ?population ?countryLabel
+ORDER BY DESC(?population)
+limit 20
+
+
+PREFIX iut: <http://www.iut-orsay.fr/td/>
+PREFIX pay: <http://www.iut-orsay.fr/td/pays/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/> 
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?nom ?countryLabel ?population ?medaille
+((?medaille/?population) AS ?medParPop)
+
+where {
+    ?pay rdf:type iut:Pays .
+    ?pay iut:medal ?medaille .
+    ?pay rdfs:label ?nom .
+    service <https://query.wikidata.org/sparql> {
+        SELECT ?countryLabel ?population {
+            ?country wdt:P31/wdt:P279* wd:Q3624078 ; 
+                                     wdt:P1082 ?population ;
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+        }
+    }
+    filter(regex(?countryLabel, str(?nom)))
+   
+}
+GROUP BY ?nom ?population ?countryLabel ?medaille
+ORDER BY DESC(?medParPop)
+limit 100
+
+
+
+PREFIX iut: <http://www.iut-orsay.fr/td/>
+PREFIX pay: <http://www.iut-orsay.fr/td/pays/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/> 
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?nom ?countryLabel ?population ?medaille
+((?medaille/?population) AS ?medParPop)
+
+where {
+    ?pay rdf:type iut:Pays .
+    ?pay iut:medal ?medaille .
+    ?pay rdfs:label ?nom .
+    service <https://query.wikidata.org/sparql> {
+        SELECT ?countryLabel ?population {
+            ?country wdt:P31/wdt:P279* wd:Q3624078 ; 
+                                     wdt:P1082 ?population ;
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+        }
+    }
+    filter(regex(?countryLabel, str(?nom)))
+   
+}
+GROUP BY ?nom ?population ?countryLabel ?medaille
+ORDER BY DESC(?medParPop)
+limit 100
